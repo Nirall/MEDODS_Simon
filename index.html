@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href = "index.css">
+    <!--  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+    <title>Simon Game</title>
+  <body>
+    <main id = "app">
+      <h1>Simon Says</h1>
+      <div class = "game-screen">
+        <div class = "circle">
+          <simon-quarter
+            v-for = "quarter in stuff"
+            :key = "quarter.name"
+            :quarter = "quarter"
+            :is-enabled = "allowInput"
+            :options = "options"
+            :class = "'circle__quarter_' + quarter.name"
+            :ref = "quarter.name"
+            @user-click = "userInputHandle"
+          ></simon-quarter>
+        </div>
+        <div class = "main-controls">
+          <h2>{{`Round ${round}`}}</h2>
+          <button @click = "startGame()">Start</button>
+          <h3>Best result: round {{maxRound}}.</h3>
+          <h4 v-if = "lose == true" class = "error">You lose. Let's try again!</h4>
+          <p>Press start to begin new game</p>
+        </div>
+      </div>
+      <div class = "options">
+        <div class = "options__section">
+          <h3>Difficulty</h3>
+          <label>
+            <input type = "radio" v-model.number = "interval" value = "1500">
+            Easy
+          </label>
+          <label>
+            <input type = "radio" v-model.number = "interval" value = "1000">
+            Normal
+          </label>
+          <label>
+            <input type = "radio" v-model.number = "interval" value = "400">
+            Hard
+          </label>
+        </div>
+        <div class = "options__section">
+          <h3>Options</h3>
+          <label>
+            <input type = "radio" v-model = "options" value = "normal">
+            Normal
+          </label>
+          <label>
+            <input type = "radio" v-model = "options" value = "soundOff">
+            Off sound
+          </label>
+          <label>
+            <input type = "radio" v-model = "options" value = "lightOff">
+            Off light
+          </label>
+        </div>
+        <div class = "options__section">
+          <h3>Modes</h3>
+          <label>
+            <input type = "checkbox" v-model = "freeBoard">
+            Free board
+          </label>
+        </div>
+      </div>
+    </main>
+  </body>
+  <script src="index.js"></script>
+</html>
