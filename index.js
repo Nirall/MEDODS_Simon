@@ -56,6 +56,7 @@ var app = new Vue({
     options: 'normal',
     lose: false,
     freeBoard: false,
+    sequationalMode: false,
   },
   
   methods: {
@@ -63,7 +64,14 @@ var app = new Vue({
       this.$refs[quarter][0].play()
     },
     addStep: function() {
-      this.state.push(this.stuff[Math.floor(Math.random()*4)].name)
+      if (this.sequationalMode) {
+        this.state.push(this.stuff[Math.floor(Math.random()*4)].name)
+      } else {
+        this.state = [];
+        for (let i = 0; i < this.round; i++) {
+          this.state.push(this.stuff[Math.floor(Math.random()*4)].name)
+        }
+      }
     },
     playSequence: function() {
       this.newGame = false;
